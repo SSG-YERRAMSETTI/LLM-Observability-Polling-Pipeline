@@ -1,0 +1,20 @@
+# LLM Observability Pipeline — Dependencies
+
+# ── Google Cloud ─────────────────────────────────────
+google-cloud-aiplatform>=1.50.0    # Vertex AI GenAI SDK
+vertexai>=1.50.0
+
+# ── HTTP / Polling ───────────────────────────────────
+requests>=2.31.0
+schedule>=1.2.0
+
+# ── Data ─────────────────────────────────────────────
+pandas>=2.0.0
+pyarrow>=14.0.0                    # Parquet support
+
+# ── Config / Utilities ───────────────────────────────
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# ── Logging ──────────────────────────────────────────
+structlog>=23.0.0                  # Structured JSON logging for GCP

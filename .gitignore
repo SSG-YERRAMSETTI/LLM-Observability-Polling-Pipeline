@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+exports/
+*.parquet
+*.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+service-account.json
