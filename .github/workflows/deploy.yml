@@ -1,15 +1,25 @@
 name: Build and Deploy to Cloud Run
 
+# ── Trigger ───────────────────────────────────────────────────────────────────
+# Changed to manual-only trigger.
+# Run automatically (on push) only after GCP secrets are configured.
+# To enable auto-deploy: change 'workflow_dispatch' to:
+#   push:
+#     branches: [main]
+
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag to deploy'
+        required: false
+        default: 'latest'
 
 env:
-  GCP_PROJECT:   ${{ secrets.GCP_PROJECT_ID }}
-  REGION:        us-central1
-  REGISTRY:      us-central1-docker.pkg.dev
-  IMAGE:         us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/llm-observability/pipeline
+  GCP_PROJECT:  ${{ secrets.GCP_PROJECT_ID }}
+  REGION:       us-central1
+  REGISTRY:     us-central1-docker.pkg.dev
+  IMAGE:        us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/llm-observability/pipeline
 
 jobs:
   build-and-deploy:
@@ -42,7 +52,7 @@ jobs:
             --platform=managed \
             --no-allow-unauthenticated
 
-      - name: Show service URL
+      - name: Show deployed URL
         run: |
           gcloud run services describe llm-observability-pipeline \
             --region=${{ env.REGION }} \
